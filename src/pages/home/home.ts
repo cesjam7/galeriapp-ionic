@@ -10,7 +10,7 @@ export class HomePage {
     public photos : any;
     public base64Image : string;
     constructor(public navCtrl: NavController, private camera : Camera, private alertCtrl : AlertController) {
-
+        this.photos = [];
     }
 
     takePhoto() {
@@ -18,11 +18,12 @@ export class HomePage {
             quality: 50, // picture quality
             destinationType: this.camera.DestinationType.DATA_URL,
             encodingType: this.camera.EncodingType.JPEG,
-            mediaType: this.camera.MediaType.PICTURE
+            mediaType: this.camera.MediaType.PICTURE,
+            allowEdit: true,
+            cameraDirection: 1
         }
         this.camera.getPicture(options) .then((imageData) => {
-            // this.base64Image = "data:image/jpeg;base64," + imageData;
-            this.base64Image = imageData;
+            this.base64Image = 'data:image/jpeg;base64,' + imageData;
             this.photos.push(this.base64Image);
             this.photos.reverse();
         }, (err) => {
